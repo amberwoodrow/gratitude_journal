@@ -1,0 +1,36 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.main-cloud {
+  width: 80%;
+  margin-bottom: 40px;
+}
+
+.main-cloud-container {
+  text-align: center;
+}
+
+.notebook {
+  border: solid 1px;
+  background-color: beige;
+}
+
+body {
+  padding: 0px; 
+  padding-top: 30px;
+}
+
+ .about-section-p {
+  font-size: 15px;  
+ }
+
+ .about-section {
+  background-color: #006b53;
+  padding: 40px;
+ }

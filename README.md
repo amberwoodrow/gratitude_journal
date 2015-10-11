@@ -1,7 +1,7 @@
 # Gratitude Journal
 
-* Keep sight of the good things in life. Change your way of thinking, focus on what
-makes you happy, and show negativity who is boss! *
+*Keep sight of the good things in life. Change your way of thinking, focus on what
+makes you happy, and show negativity who is boss!*
 
 ## Technologies / Features
 * Building my own API to store the user's data

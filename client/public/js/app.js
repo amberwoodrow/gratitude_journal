@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ['ngRoute']);
+var app = angular.module("myApp", ['ngRoute', 'ngCookies']);
 
 app.config(function($routeProvider) {
   $routeProvider
@@ -7,16 +7,23 @@ app.config(function($routeProvider) {
     controller: 'mainController'
   }).when('/home', {
     templateUrl: './views/partials/user_home.html',
-    controller: 'mainController'
-    // access: {restricted: true}
+    controller: 'mainController',
+    access: {restricted: false}
   });
 });
 
-// if user logged in 
-  // .when('/', {
-  //   templateUrl: './views/partials/user_home.html',
-  //   controller: 'mainController'
-  // });
-// else
+myApp.run(function ($rootScope, $location, $route, SessionFactory) {
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    if (next.access.restricted && !SessionFactory.getUserStatus()) {
+      $location.path('/login');
+    }
+  });
+});
 
-// when logged in turn signin signup to logout link
+// myApp.run(function ($rootScope, $location, $route, AuthService) {
+//   $rootScope.$on('$routeChangeStart', function (event, next, current) {
+//     if (next.access.restricted && !AuthService.getUserStatus()) {
+//       $location.path('/login');
+//     }
+//   });
+// });

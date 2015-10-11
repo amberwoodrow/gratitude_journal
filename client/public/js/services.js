@@ -1,7 +1,5 @@
 app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($q, $timeout, $http, $cookies){
   
-  // create user variable
-  var user = null;
 
   // return available functions for use in controllers
   return ({
@@ -12,7 +10,9 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
   });
 
   function getUserStatus() {
-    if(user) {
+    var authenticated = $cookies.get('loggedin');
+    console.log(authenticated);
+    if(authenticated) {
       return true;
     } else {
       return false;
@@ -25,55 +25,31 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
   }
 
   function login(payload) {
-    // return $http.post('api/v1/login', payload);
-      // create a new instance of deferred
-      var deferred = $q.defer();
+  // return $http.post('api/v1/login', payload);
+    // create a new instance of deferred
+    var deferred = $q.defer();
 
-      // send a post request to the server
-      $http.post('api/v1/login', payload)
-        // handle success
-        .success(function (data, status) {
-          if(status === 200){
-            console.log(data);
-            user = true;
-            $cookies.put('loggedin', 'true');
-            console.log($cookies);
-            deferred.resolve();
-          } else {
-            user = false;
-            deferred.reject();
-          }
-        })
-        // handle error
-        .error(function (data) {
-          user = false;
+    // send a post request to the server
+    $http.post('api/v1/login', payload)
+      // handle success
+      .success(function (data, status) {
+        if(status === 200){
+          $cookies.put('loggedin', 'true');
+          deferred.resolve();
+        } else {
           deferred.reject();
-        });
+        }
+      })
+      // handle error
+      .error(function (data) {
+        user = false;
+        deferred.reject();
+      });
 
-      // return promise object
-      return deferred.promise;
+    // return promise object
+    return deferred.promise;
   }
 
-  // In the LogoffController I ‘put’ a blank key-pair value into the cookie when the logoff has been successful
-  // $cookieStore.put(‘loggedin’, ”);
-
-
-  // function session() {
-
-  // }
-
-  // app.factory('Session', function($http) {
-  //   var Session = {
-  //     data: {},
-  //     saveSession: function() { /* save session data to db */ },
-  //     updateSession: function() { 
-  //       /* load data from db */
-  //       $http.get('session.json').then(function(r) { return Session.data = r.data;});
-  //     }
-  //   };
-  //   Session.updateSession();
-  //   return Session; 
-  // });
 
 }]);
 

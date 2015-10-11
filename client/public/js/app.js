@@ -4,18 +4,19 @@ app.config(function($routeProvider) {
   $routeProvider
   .when('/', {
     templateUrl: './views/partials/index.html',
-    controller: 'mainController'
+    controller: 'mainController',
+    access: {restricted: false}
   }).when('/home', {
     templateUrl: './views/partials/user_home.html',
     controller: 'mainController',
-    access: {restricted: false}
+    access: {restricted: true}
   });
 });
 
-myApp.run(function ($rootScope, $location, $route, SessionFactory) {
+app.run(function ($rootScope, $location, $route, SessionFactory) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     if (next.access.restricted && !SessionFactory.getUserStatus()) {
-      $location.path('/login');
+      $location.path('/');
     }
   });
 });

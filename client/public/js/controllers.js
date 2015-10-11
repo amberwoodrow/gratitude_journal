@@ -39,7 +39,23 @@ app.controller('mainController', function($scope, SessionFactory, $location, $co
     login(payload);
   };
 
+  $scope.doLogout = function() {
+    $cookies.remove('loggedin');
+  };
+
 });
+
+    // $scope.logout = function () {
+
+    //   // console.log(AuthService.getUserStatus());
+
+    //   // call logout from service
+    //   AuthService.logout()
+    //     .then(function () {
+    //       $location.path('/login');
+    //     });
+
+    // };
 
 // var ignore = ['for', 'and', 'nor', 'or', 'but', 'yet', 'so', 'all things not letters or intagers, except periods with an int directly behind it', 'after', 'although', 'as', 'because', 'before', 'if', 'we\'re', 'long', 'once', 'now', 'that', 'since', 'though', 'unless', 'until', 'when', 'where', 'while', 'such', 'scare', 'scarely', 'many', 'soon', 'rather', 'than'];
 

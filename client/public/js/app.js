@@ -10,7 +10,7 @@ app.config(function($routeProvider) {
     templateUrl: './views/partials/user_home.html',
     controller: 'mainController',
     access: {restricted: true}
-  });
+  });//.otherwise('/')
 });
 
 app.run(function ($rootScope, $location, $route, SessionFactory) {
@@ -20,11 +20,3 @@ app.run(function ($rootScope, $location, $route, SessionFactory) {
     }
   });
 });
-
-// myApp.run(function ($rootScope, $location, $route, AuthService) {
-//   $rootScope.$on('$routeChangeStart', function (event, next, current) {
-//     if (next.access.restricted && !AuthService.getUserStatus()) {
-//       $location.path('/login');
-//     }
-//   });
-// });

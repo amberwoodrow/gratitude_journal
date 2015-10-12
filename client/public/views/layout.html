@@ -17,14 +17,15 @@
           </section>
           <section class="col-md-4 navbar-right">
             <section>
-            <ul ng-hide="loggedin" class="nav row">
-              <li class="col-md-4"><a href="#">Sign in</a></li>
-              <li class="col-md-4"><a href="#">Sign up</a></li>
-            </ul>
+              <ul ng-hide="isLoggedin()" class="nav row">
+                <li class="col-md-4"><a>Sign in</a></li>
+                <li class="col-md-4"><a>Sign up</a></li>
+              </ul>
 
-            <ul ng-show="loggedin" class="nav row">
-              <li class="col-md-4"><a ng-click="doLogout()" >Log out</a></li>
-            </ul>
+              <ul ng-show="isLoggedin()" class="nav row">
+                <li class="col-md-4"><a ng-click="doLogout()">Log out</a></li>
+              </ul>
+            </section>
           </section>
         </section>
       </nav>

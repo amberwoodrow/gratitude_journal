@@ -27,8 +27,8 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
     $http.post('api/v1/journalUsers', payload)
       // handle success
       .success(function (data, status) {
-        if(status === 200 && data.status){
-          user = true;
+        if(status === 200){
+          $cookies.put('loggedin', JSON.stringify(data));
           deferred.resolve();
         } else {
           deferred.reject();
@@ -45,7 +45,6 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
   }
 
   function login(payload) {
-  // return $http.post('api/v1/login', payload);
     // create a new instance of deferred
     var deferred = $q.defer();
 
@@ -63,7 +62,6 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
       })
       // handle error
       .error(function (data) {
-        user = false;
         deferred.reject();
       });
 

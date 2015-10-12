@@ -1,20 +1,20 @@
 app.controller('mainController', function($scope, SessionFactory, EntryFactory, $location, $cookies) {
 
-  $scope.loggedin = false;
-
   $scope.entries = '';
   if ($cookies.get('loggedin') !== undefined) {
-    console.log($scope.loggedin);
     $scope.cakes = JSON.parse($cookies.get('loggedin')).email;
-    $scope.loggedin = true;
   }
   $scope.date = Date.now();
 
-  // $scope.date = currentDateService.dateToDisplay();
-
-  // $scope.timeStampToDate = function(time) {
-  //   $scope.dateForStamp = currentDateService.dateToDisplay(time);
-  // };
+  $scope.isLoggedin = function() {
+    if ($cookies.get('loggedin') !== undefined) {
+      $scope.signedIn = true;
+      return $scope.signedIn;
+    } else {
+      $scope.signedIn = false;
+      return $scope.signedIn;
+    }
+  };
 
   $scope.goHome = function() {
     $location.path('home');

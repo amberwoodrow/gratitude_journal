@@ -1,9 +1,3 @@
-app.filter('kebabCase', function () {
-  return function (input) {
-    return input.replace(/_|\s+/g , "-");
-  };
-});
-
 app.filter('dateFilter', function(){
   return function (date) {
     if (date === undefined) {

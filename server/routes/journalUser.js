@@ -11,7 +11,7 @@ router.post('/journalUsers', function(req, res, next) {
   });
   newjournalUser.save(function(err, data){
     if(err){
-      res.json({'message': err});
+      res.status(401).json({"message": "Bad things register"});
     } else {
       res.json(data);
     }

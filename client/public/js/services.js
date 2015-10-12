@@ -11,7 +11,6 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
 
   function getUserStatus() {
     var authenticated = $cookies.get('loggedin');
-    console.log(authenticated);
     if(authenticated) {
       return true;
     } else {
@@ -21,7 +20,28 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
 
   //post request
   function register(payload) {
-    return $http.post('api/v1/journalUsers', payload);
+    // create a new instance of deferred
+    var deferred = $q.defer();
+
+    // send a post request to the server
+    $http.post('api/v1/journalUsers', payload)
+      // handle success
+      .success(function (data, status) {
+        if(status === 200 && data.status){
+          user = true;
+          deferred.resolve();
+        } else {
+          deferred.reject();
+        }
+      })
+      // handle error
+      .error(function (data) {
+        deferred.reject();
+      });
+
+    // return promise object
+    return deferred.promise;
+
   }
 
   function login(payload) {
@@ -71,14 +91,3 @@ app.factory('EntryFactory', ['$q', '$timeout', '$http', '$cookies', function($q,
 
 }]);
 
-// app.factory('currentDateService', [function(){
-//   // returns a date with full month name
-//   function dateToDisplay() {
-//     var d = new Date();
-//     var monthNames = ["January", "February", "March", "April", "May", "June",
-//       "July", "August", "September", "October", "November", "December"
-//     ];
-//     var date = monthNames[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
-//     return date;
-//   }
-// }]);

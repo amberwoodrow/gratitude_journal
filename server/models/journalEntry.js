@@ -7,7 +7,7 @@ var JournalEntry = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'JournalUser'
   },
-  time: Number
+  timeStamp: Number
 });
 
 module.exports = mongoose.model("JournalEntry", JournalEntry);

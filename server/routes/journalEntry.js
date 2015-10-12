@@ -16,10 +16,11 @@ router.post('/journalEntry', function(req, res, next) {
     // Create a new entry
     newjournalEntry = new JournalEntry({
       postedBy: user,
-      entry: req.body.entry[0]
+      entry: req.body.entry[0],
+      timeStamp: Date.now()
     });
 
-    // console.log('newjournalEntry', newjournalEntry);
+    console.log('newjournalEntry', newjournalEntry);
     // Store the new journal entry in the user
     user.entries.push(newjournalEntry);
     // Save the user
@@ -30,15 +31,6 @@ router.post('/journalEntry', function(req, res, next) {
         // res.json(data);
       }
     });
-
-    // user.populate(entries)
-    // .exec(function(err, data){
-    //   if(err){
-    //     res.json({'message': err});
-    //   } else {
-    //     res.json(data);
-    //   }
-    // });
 
     // Save the journal entry
     newjournalEntry.save(function(err, data){

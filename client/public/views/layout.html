@@ -12,20 +12,17 @@
     <section class="nav-section zigzag">
       <nav class="navbar">
         <section class="container-fluid row">
-          <section class="col-md-4">
-            <span href="#">Date now</span>
+          <section class="col-md-4 navbar-left">
+            <a ng-click="goHome()" class="font-style">Gratitude</a>
           </section>
-          <section class="col-md-4">
-            <a href="#" class="font-style">Gratitude</a>
-          </section>
-          <section class="col-md-4">
+          <section class="col-md-4 navbar-right">
             <section>
-            <ul  ng-if="cookies" class="nav row">
+            <ul ng-hide="loggedin" class="nav row">
               <li class="col-md-4"><a href="#">Sign in</a></li>
               <li class="col-md-4"><a href="#">Sign up</a></li>
             </ul>
 
-            <ul ng-if="!cookies" class="nav row">
+            <ul ng-show="loggedin" class="nav row">
               <li class="col-md-4"><a ng-click="doLogout()" >Log out</a></li>
             </ul>
           </section>
@@ -38,7 +35,7 @@
         <img src="http://www.pragmaticea.com/images/160-challenge-word-cloud-raw.png" class="main-cloud">
       </section>
 
-      <section ng-view>
+      <section ng-view class="container main-container">
         
       </section> 
     </section>

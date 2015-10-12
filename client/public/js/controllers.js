@@ -1,13 +1,33 @@
 app.controller('mainController', function($scope, SessionFactory, EntryFactory, $location, $cookies) {
 
-  // $scope.loggedin = "YO";
+  $scope.loggedin = false;
+
   $scope.entries = '';
+  if ($cookies.get('loggedin') !== undefined) {
+    console.log($scope.loggedin);
+    $scope.cakes = JSON.parse($cookies.get('loggedin')).email;
+    $scope.loggedin = true;
+  }
+  $scope.date = Date.now();
+
+  // $scope.date = currentDateService.dateToDisplay();
+
+  // $scope.timeStampToDate = function(time) {
+  //   $scope.dateForStamp = currentDateService.dateToDisplay(time);
+  // };
+
+  $scope.goHome = function() {
+    $location.path('home');
+  };
 
   function register(payload) {  
-    SessionFactory.register(payload).success(function(response) {
+    SessionFactory.register(payload)
+    .then(function(response) {
+      $location.path('home');
+      console.log("successfully signed up");
     })
-    .error(function(data) {
-      console.log('Error: ' + data);
+    .catch(function(data) {
+      console.log('Error: ' + "Register no good");
     });
   }
 
@@ -60,6 +80,7 @@ app.controller('mainController', function($scope, SessionFactory, EntryFactory, 
         'currentUser': JSON.parse($cookies.get('loggedin'))
       };
       postEntry(payload);
+      $scope.entry = "";
     };
 
 
@@ -80,8 +101,9 @@ app.controller('mainController', function($scope, SessionFactory, EntryFactory, 
       getEntries(payload);
     };
 
-  $scope.doGetEntries();
-
+  if($cookies.get('loggedin') !== undefined) {
+    $scope.doGetEntries();
+  }
   // });
 
 });

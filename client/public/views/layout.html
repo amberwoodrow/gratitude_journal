@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="/css/main.css">
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
   </head>
-  <body  class="notebook" ng-controller="mainController">
+  <body ng-controller="mainController">
 
-    <section class="nav-section">
+    <section class="nav-section zigzag">
       <nav class="navbar">
         <section class="container-fluid row">
           <section class="col-md-4">
@@ -20,27 +20,27 @@
           </section>
           <section class="col-md-4">
             <section>
-            <ul class="nav row">
+            <ul  ng-if="cookies" class="nav row">
               <li class="col-md-4"><a href="#">Sign in</a></li>
               <li class="col-md-4"><a href="#">Sign up</a></li>
             </ul>
 
-            <ul class="nav row">
+            <ul ng-if="!cookies" class="nav row">
               <li class="col-md-4"><a ng-click="doLogout()" >Log out</a></li>
             </ul>
           </section>
         </section>
       </nav>
-    </section>
+    </section> <!-- .nav-section -->
 
-    <section>
-    <section class="main-cloud-container">
-      <img src="http://www.pragmaticea.com/images/160-challenge-word-cloud-raw.png" class="main-cloud">
-    </section>
+    <section class="notebook">
+      <section class="main-cloud-container">
+        <img src="http://www.pragmaticea.com/images/160-challenge-word-cloud-raw.png" class="main-cloud">
+      </section>
 
-    <section ng-view>
-      
-    </section> 
+      <section ng-view>
+        
+      </section> 
     </section>
 
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>

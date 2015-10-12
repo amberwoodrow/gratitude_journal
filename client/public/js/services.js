@@ -34,7 +34,8 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
       // handle success
       .success(function (data, status) {
         if(status === 200){
-          $cookies.put('loggedin', 'true');
+          // set login cookie
+          $cookies.put('loggedin', JSON.stringify(data));
           deferred.resolve();
         } else {
           deferred.reject();
@@ -53,6 +54,23 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
 
 }]);
 
+app.factory('EntryFactory', ['$q', '$timeout', '$http', '$cookies', function($q, $timeout, $http, $cookies){
+
+  return ({
+    postEntry: postEntry,
+    getEntries: getEntries
+  });
+
+  function postEntry(payload) {
+    return $http.post('api/v1/journalEntry', payload);
+  }
+
+  function getEntries(payload) {
+    return $http.get('api/v1/journalEntries?_id=' +payload.currentUser._id+ '', {data: payload});
+  }
+
+}]);
+
 // app.factory('currentDateService', [function(){
 //   // returns a date with full month name
 //   function dateToDisplay() {
@@ -64,36 +82,3 @@ app.factory('SessionFactory', ['$q', '$timeout', '$http', '$cookies', function($
 //     return date;
 //   }
 // }]);
-
-
-
-// to post notes, and render them with ng repeat, edit on click, add on click
-// app.factory('HTTPfactory', ['$http', function($http){
-//   var obj = {};
-
-//   //get request
-//   obj.get = function() {
-//     return $http.get('api/v1/journalUsers');
-//   };
-
-//   //post request
-//   obj.post = function(payload) {
-//     return $http.post('api/v1/journalUsers', payload);
-//   };
-
-//   return obj;
-// }]);
-
-
-//       var Note = function($scope){
-//         $scope.items = [];
-
-//         $scope.add = function () {
-//           $scope.items.push({ 
-//             inlineChecked: false,
-//             question: "",
-//             questionPlaceholder: "foo",
-//             text: ""
-//           });
-//         };
-//       }

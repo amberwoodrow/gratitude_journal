@@ -1,9 +1,10 @@
-app.controller('mainController', function($scope, SessionFactory, $location, $cookies) {
+app.controller('mainController', function($scope, SessionFactory, EntryFactory, $location, $cookies) {
 
- // Register
+  // $scope.loggedin = "YO";
+  $scope.entries = '';
+
   function register(payload) {  
     SessionFactory.register(payload).success(function(response) {
-      // $scope.journalUsers.push(response);
     })
     .error(function(data) {
       console.log('Error: ' + data);
@@ -16,10 +17,8 @@ app.controller('mainController', function($scope, SessionFactory, $location, $co
       'password': $scope.password
     };
     register(payload);
-    //$location.path('home');
   };
 
-  // Login
   function login(payload) {  
     SessionFactory.login(payload)
     .then(function(response) {
@@ -41,36 +40,51 @@ app.controller('mainController', function($scope, SessionFactory, $location, $co
 
   $scope.doLogout = function() {
     $cookies.remove('loggedin');
+    $location.path('/');
   };
+
+  // app.controller('entryController', function($scope, EntryFactory, $location) {
+
+    function postEntry(payload) { 
+      EntryFactory.postEntry(payload)
+      .then(function(response) {
+      })
+      .catch(function(data) {
+        console.log('Error: ' + data);
+      });
+    }
+
+    $scope.addEntry = function() {
+      var payload = {
+        'entry': [$scope.entry],
+        'currentUser': JSON.parse($cookies.get('loggedin'))
+      };
+      postEntry(payload);
+    };
+
+
+    function getEntries(payload) {
+      EntryFactory.getEntries(payload)
+      .then(function(response) {
+        $scope.entries = response.data;
+      })
+      .catch(function(data) {
+        console.log('Error: ' + data);
+      });
+    }
+
+    $scope.doGetEntries = function() {
+      var payload = {
+        'currentUser': JSON.parse($cookies.get('loggedin'))
+      };
+      getEntries(payload);
+    };
+
+  $scope.doGetEntries();
+
+  // });
 
 });
 
-    // $scope.logout = function () {
-
-    //   // console.log(AuthService.getUserStatus());
-
-    //   // call logout from service
-    //   AuthService.logout()
-    //     .then(function () {
-    //       $location.path('/login');
-    //     });
-
-    // };
 
 // var ignore = ['for', 'and', 'nor', 'or', 'but', 'yet', 'so', 'all things not letters or intagers, except periods with an int directly behind it', 'after', 'although', 'as', 'because', 'before', 'if', 'we\'re', 'long', 'once', 'now', 'that', 'since', 'though', 'unless', 'until', 'when', 'where', 'while', 'such', 'scare', 'scarely', 'many', 'soon', 'rather', 'than'];
-
-
-// .controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
-//   $scope.credentials = {
-//     username: '',
-//     password: ''
-//   };
-//   $scope.login = function (credentials) {
-//     AuthService.login(credentials).then(function (user) {
-//       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-//       $scope.setCurrentUser(user);
-//     }, function () {
-//       $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-//     });
-//   };
-// })

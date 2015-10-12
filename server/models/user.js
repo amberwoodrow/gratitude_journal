@@ -1,13 +1,10 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
-var passportLocalMongoose = require('passport-local-mongoose');
-
 
 var JournalUser = new Schema({
   email: String,
-  password: String
+  password: String,
+  entries: [{ type: Schema.Types.ObjectId, ref: 'JournalEntry' }]
 });
 
-JournalUser.plugin(passportLocalMongoose); 
-
-module.exports = mongoose.model('journalUsers', JournalUser);
+module.exports = mongoose.model('JournalUser', JournalUser);

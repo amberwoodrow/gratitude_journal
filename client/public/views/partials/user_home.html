@@ -13,14 +13,18 @@
   </section> <!-- row -->
 
   <section>
+    {{hi}}
+    <ul ng-repeat="entry in entries track by $index">
+      <li>{{entry.entry[0]}}</li>
+    </ul>
   </section>
 
   <section>
     <form>
       <section class="form-group">
-        <input type="password" class="form-control notebook-input" id="password" name="password" ng-model="password" placeholder="I'm grateful for...">
+        <input type="text" class="form-control notebook-input" ng-model="entry" placeholder="I'm grateful for...">
       </section>
-      <!-- <button type="submit" ng-click="" class="btn btn-default">Sign up!</button> -->
+      <button type="submit" ng-click="addEntry(); doGetEntries()" class="btn btn-default">Add entry</button>
     </form>
   </section>
 
@@ -30,3 +34,5 @@
 save button saves the posts for the date. -->
 
 <!-- best way to go if I want to look up past entries -->
+
+<!-- click to edit entry -->

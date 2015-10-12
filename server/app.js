@@ -56,6 +56,8 @@ app.set('view engine', 'html'); // or this
 
 // *** main routes *** //
 app.use('/api/v1/', journalUser);
+app.use('/api/v1/', journalEntry);
+
 app.use('/', function(req,res) {
   res.sendFile(path.join(__dirname, '../client/public/views', 'layout.html'));
 });

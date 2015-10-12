@@ -4,26 +4,6 @@ var JournalUser = require('../models/user.js');
 var JournalEntry = require('../models/journalEntry.js');
 
 
-router.get('/journalUsers', function(req, res, next) { //admin 
-  JournalUser.find(function(err, data){
-    if(err){
-      res.json({'message': err});
-    } else {
-      res.json(data);
-    }
-  });
-});
-
-router.get('/journalUser/:id', function(req, res, next) { // admin
-  JournalUser.findById(req.params.id, function(err, data){
-    if(err){
-      res.json({'message': err});
-    } else {
-      res.json(data);
-    }
-  });
-});
-
 router.post('/journalUsers', function(req, res, next) {
   newjournalUser = new JournalUser({
     email: req.body.email,
@@ -41,8 +21,6 @@ router.post('/journalUsers', function(req, res, next) {
 // do I need another route file for login
 router.post('/login', function(req, res, next) {
   JournalUser.findOne({'email': req.body.email}, 'email password', function(err, data){
-    console.log(req.body);
-    console.log(data);
     if(err){
       res.json({'message': err});
     } else {
@@ -58,6 +36,12 @@ router.post('/login', function(req, res, next) {
     }
   });
 });
+
+module.exports = router;
+
+
+
+
 
 
 // // put a beer
@@ -87,48 +71,23 @@ router.post('/login', function(req, res, next) {
 //   });
 // });
 
-module.exports = router;
-
-
-
-// mike's code must return json
-// var express = require('express');
-// var router = express.Router();
-// var passport = require('passport');
-// var User = require('../models/user.js');
-
-
-// router.post('/register', function(req, res) {
-//   User.register(new User({ username: req.body.username }), req.body.password, function(err, account) {
-//     if (err) {
-//       return res.status(500).json({err: err});
+// router.get('/journalUsers', function(req, res, next) { //admin 
+//   JournalUser.find(function(err, data){
+//     if(err){
+//       res.json({'message': err});
+//     } else {
+//       res.json(data);
 //     }
-//     passport.authenticate('local')(req, res, function () {
-//       return res.status(200).json({status: 'Registration successful!'});
-//     });
 //   });
 // });
 
-// router.post('/login', function(req, res, next) {
-//   passport.authenticate('local', function(err, user, info) {
-//     if (err) {
-//       return next(err);
+// router.get('/journalUser/:id', function(req, res, next) { // admin
+//   JournalUser.findById(req.params.id, function(err, data){
+//     if(err){
+//       res.json({'message': err});
+//     } else {
+//       res.json(data);
 //     }
-//     if (!user) {
-//       return res.status(401).json({err: info});
-//     }
-//     req.logIn(user, function(err) {
-//       if (err) {
-//         return res.status(500).json({err: 'Could not log in user'});
-//       }
-//       res.status(200).json({status: 'Login successful!'});
-//     });
-//   })(req, res, next);
+//   });
 // });
 
-// router.get('/logout', function(req, res) {
-//   req.logout();
-//   res.status(200).json({status: 'Bye!'});
-// });
-
-// module.exports = router;

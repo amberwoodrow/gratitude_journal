@@ -78,7 +78,7 @@ body {
 }
 
 .nav>li>a {
-  padding: 0px;
+  padding: 12px;
 }
 
 /* image styles */
@@ -171,4 +171,13 @@ html {
 
 .calendar {
   width: 300px;
+  padding: 10px;
+}
+
+.calendar-input {
+  font-size: 20px;
+}
+
+.emailLoggedin {
+  font-size: 30px;
 }

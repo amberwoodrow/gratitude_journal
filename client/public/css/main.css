@@ -1,3 +1,17 @@
+.logo {
+  color: beige;
+  text-shadow:
+    -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-size: 45px;
+}
+
+.logo:hover {
+  text-decoration: none;
+  color: #E1CF79;
+}
 
 /* cloud */
 .main-cloud {
@@ -47,7 +61,7 @@ body {
  }
 
  .notebook-input {
-  border: 0;
+  border: dotted lightgray;
   background-color: beige;
   box-shadow: inset 0 0px 0px rgba(0,0,0,.0);
  }
@@ -105,4 +119,56 @@ p, .add-line, .line-li:not(:first-child) {
 /* main container styles */
 .main-container {
   margin-bottom: 100px;
+}
+
+/*entry form*/
+.entry-input {
+  font-size: 25px;
+  padding: 30px;
+}
+
+.entry-form {
+  padding-top: 20px;
+}
+
+.entry-form-btn {
+  margin: auto;
+  display: block;
+  background-color: #F2CF66;
+  border: 0;
+  border-bottom: 5px solid #D1B358;
+  text-shadow: 0px -2px #D1B358;
+  padding: 10px;
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+}
+
+.entry-form-btn:hover {
+  background-color: #D4A92E;
+  border-bottom: 5px solid #B6A46C;
+  color: whitesmoke;
+}
+
+.entry-form-btn:active {
+  background-color: #D4A92E;
+  border-bottom: 5px solid #B6A46C;
+  color: whitesmoke;
+  outline: none;
+  border: none;
+}
+
+.entry-form-btn:focus {
+  background-color: #D4A92E;
+  border-bottom: 5px solid #B6A46C;
+  color: whitesmoke;
+  outline: 0;
+}
+
+html {
+  background-color: beige;
+}
+
+.calendar {
+  width: 300px;
 }

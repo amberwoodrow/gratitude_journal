@@ -75,12 +75,25 @@ app.controller('mainController', function($scope, SessionFactory, EntryFactory, 
     }
 
     $scope.addEntry = function() {
+      var temp = [];
+      for (var i=0; i<$scope.entries.length; i++) {
+        for (var j=0; j<$scope.entries[i].items.length; j++) {
+        //loop through the days
+        //loop through the array of entries and add them to the temp array, one by one
+          temp.push($scope.entries[i].items[j]);
+        }
+      }
+      temp.push($scope.items);
+      console.log(temp)
+
+      // $scope.entries.push($scope.items);
       var payload = {
-        'entry': [$scope.entry],
+        'items': temp,
         'currentUser': JSON.parse($cookies.get('loggedin'))
       };
+      console.log(payload)
       postEntry(payload);
-      $scope.entry = "";
+      $scope.items = [];
     };
 
 
@@ -105,6 +118,63 @@ app.controller('mainController', function($scope, SessionFactory, EntryFactory, 
     $scope.doGetEntries();
   }
   // });
+
+
+
+
+
+
+
+
+
+
+
+
+  $scope.today = function() {
+    $scope.dt = new Date();
+  };
+
+  $scope.today();
+
+  $scope.clear = function () {
+    $scope.dt = null;
+  };
+
+  $scope.toggleMin = function() {
+    $scope.minDate = $scope.minDate ? null : new Date();
+  };
+  $scope.toggleMin();
+  $scope.maxDate = new Date(2020, 5, 22);
+
+  $scope.open = function($event) {
+    $scope.status.opened = true;
+  };
+
+  $scope.setDate = function(year, month, day) {
+    $scope.dt = new Date(year, month, day);
+  };
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  $scope.format = $scope.formats[0];
+
+  $scope.status = {
+    opened: false
+  };
+
+
+
+  $scope.changeDate = function() {
+    var payload = {
+      'currentUser': JSON.parse($cookies.get('loggedin')),
+      'timeStamp': $scope.dt
+    };
+    getEntries(payload);
+  };
 
 });
 

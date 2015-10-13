@@ -1,27 +1,35 @@
 <section class="row notebook-header-margin">
-<!--     <section class="col-md-2 corner-header-margin">
-    <p></p>
-  </section> -->
+
   <section class="col-md-6">
-    <h4>{{date | dateFilter}}</h4>
+    <section class="input-group calendar">
+      <input type="text" class="form-control" ng-change='changeDate()' uib-datepicker-popup="{{format='shortDate'}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+      </span>
+    </section>
   </section>
+
   <section class="col-md-5">
     <h4>{{cakes}}'s Journal</h4>
   </section>
+
 </section> <!-- row -->
 
 <section>
   <ul class="line-li" ng-repeat="entry in entries track by $index">
-    <li>{{entry.entry[0]}} {{entry.timeStamp | dateFilter }}</li>
+     {{entry.timeStamp | dateFilter}}
+    <span ng-repeat="item in entry.items track by $index">
+      <li>{{item}}</li>
+    </span>
   </ul>
 </section>
 
 <section>
-  <form class="form-inline add-line">
+  <form class="form add-line entry-form">
     <section class="form-group">
-      <input type="text" class="form-control notebook-input" ng-model="entry" placeholder="I'm grateful for...">
+      <input type="text" class="form-control notebook-input entry-input" ng-model="items" placeholder="I'm grateful for...">
     </section>
-    <button type="submit" ng-click="addEntry(); doGetEntries()" class="btn btn-default">Add entry</button>
+    <button type="submit" ng-click="addEntry(); doGetEntries()" class="btn btn-default entry-form-btn">Add entry</button>
   </form>
 </section>
 

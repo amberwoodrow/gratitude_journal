@@ -84,7 +84,11 @@ app.factory('EntryFactory', ['$q', '$timeout', '$http', '$cookies', function($q,
   }
 
   function getEntries(payload) {
-    return $http.get('api/v1/journalEntries?_id=' +payload.currentUser._id+ '', {data: payload});
+    if (payload.timeStamp === undefined) {
+      payload.timeStamp = new Date();
+    }
+    var dbDate = (payload.timeStamp.getMonth()+1)+'/'+payload.timeStamp.getDate()+'/'+payload.timeStamp.getFullYear();
+    return $http.get('api/v1/journalEntries?_id=' +payload.currentUser._id+ '&timeStamp=' +dbDate+'', {data: payload});
   }
 
 }]);
